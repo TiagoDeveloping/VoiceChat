@@ -33,7 +33,7 @@ public class UDPOutputStream {
 		try { // ioexception is sending problem, upper layer shouldn't have to worry
 			socket.send(packet);
 		} catch (IOException e) {
-			// TODO fix problem
+			// TODO handle
 			e.printStackTrace();
 		}
 		

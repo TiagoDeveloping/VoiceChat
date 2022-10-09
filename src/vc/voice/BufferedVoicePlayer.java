@@ -11,9 +11,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
-public class VoicePlayer {
+import vc.main.Main;
 
-	private AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true); // TODO extract format
+public class BufferedVoicePlayer {
+
+	private AudioFormat format = Main.main.format;
 	private InputStream stream;
 	private ByteArrayOutputStream bStream;
 	
@@ -22,7 +24,7 @@ public class VoicePlayer {
 	
     public boolean occupied = false;
     
-	public VoicePlayer(ByteArrayOutputStream bStream) {
+	public BufferedVoicePlayer(ByteArrayOutputStream bStream) {
 		this.bStream = bStream;
 		this.stream = new ByteArrayInputStream(bStream.toByteArray());
 	}

@@ -8,13 +8,13 @@ import javax.sound.sampled.TargetDataLine;
 import vc.main.Main;
 import vc.udp.UDPOutputStream;
 
-public class VoiceCapture {
+public class BufferedVoiceTransmitter {
 
 	 private AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
 	 private TargetDataLine microphone;
 	 private UDPOutputStream udpOut;
 	 
-	 public VoiceCapture(UDPOutputStream udpOut) {
+	 public BufferedVoiceTransmitter(UDPOutputStream udpOut) {
 		 this.udpOut = udpOut;
 	 }
 	
@@ -33,7 +33,7 @@ public class VoiceCapture {
 	        
 	        long bytesRead = 0;
 	        
-            while (bytesRead < bytes) { // TODO change boolean
+            while (bytesRead < bytes) {
                 numBytesRead = microphone.read(data, 0, Main.main.chunkSize);
                 bytesRead = bytesRead + numBytesRead;
                 System.out.println(bytesRead);

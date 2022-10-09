@@ -4,14 +4,14 @@ import java.io.ByteArrayOutputStream;
 
 import vc.main.Main;
 import vc.udp.UDPInputStream;
-import vc.voice.VoicePlayer;
+import vc.voice.BufferedVoicePlayer;
 
-public class UDPInStreamHandler implements Runnable {
+public class UDPBufferedVoiceHandler implements Runnable {
 
 	private UDPInputStream in;
 	private ByteArrayOutputStream out;
 	
-	public UDPInStreamHandler(UDPInputStream in) {
+	public UDPBufferedVoiceHandler(UDPInputStream in) {
 		this.in = in;
 		out = new ByteArrayOutputStream();
 	}
@@ -24,7 +24,7 @@ public class UDPInStreamHandler implements Runnable {
 				while (out.size() <= Main.main.transferSize) {
 					out.write(in.read());
 				}
-				VoicePlayer vp = new VoicePlayer(out);
+				BufferedVoicePlayer vp = new BufferedVoicePlayer(out);
 				vp.play(Main.main.transferSize);
 			}
 

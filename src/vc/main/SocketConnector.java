@@ -4,7 +4,7 @@ import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
-import vc.handlers.UDPInStreamHandler;
+import vc.handlers.UDPBufferedVoiceHandler;
 import vc.udp.UDPInputStream;
 import vc.udp.UDPOutputStream;
 
@@ -29,7 +29,7 @@ public class SocketConnector {
 		try {
 			socketIn = new DatagramSocket(inport);
 			udpInStream = new UDPInputStream(socketIn, chunkSize);
-			Main.main.registerThread(new Thread(new UDPInStreamHandler(udpInStream)), "UDPInStreamHandler"); // TODO cleanup traintrack
+			Main.main.registerThread(new Thread(new UDPBufferedVoiceHandler(udpInStream)), "UDPInStreamHandler"); // TODO cleanup traintrack
 			
 			System.out.println("listening on: " + socketIn.getLocalSocketAddress() + " | " + socketIn.isBound());
 		} catch (SocketException listenExc) {

@@ -14,9 +14,12 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import vc.handlers.VoiceStreamRecieverHandler;
+import vc.handlers.VoiceStreamTransmitterHandler;
 import vc.main.Main;
 import vc.main.SocketConnector;
-import vc.voice.VoiceCapture;
+import vc.voice.BufferedVoiceTransmitter;
+import vc.voice.StreamVoiceTransmitter;
 
 public class Window {
 
@@ -113,7 +116,7 @@ public class Window {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VoiceCapture vc = new VoiceCapture(Main.main.connector.udpOutStream);
+				BufferedVoiceTransmitter vc = new BufferedVoiceTransmitter(Main.main.connector.udpOutStream);
 				vc.captureAndTransmit(Main.main.transferSize); // 100.000 bytes of data
 			}
 		};
@@ -143,8 +146,22 @@ public class Window {
 				
 				int listenPort = Integer.parseInt(listen_port.getText());
 				
+				/* connector stuff */
+				
 				Main.main.connector = new SocketConnector(Main.main.chunkSize, listenPort, writePort, writeAddr);
 				Main.main.connector.connect();
+				
+				/* transmitter stuff */
+				Main.main.voiceTransmitter = new StreamVoiceTransmitter(Main.main.connector.udpOutStream); // transmit
+				Main.main.voiceStreamTransmitterHandler = new VoiceStreamTransmitterHandler(Main.main.voiceTransmitter); // enable reciever to write to speaker
+				
+				Main.main.registerThread(new Thread(Main.main.voiceStreamTransmitterHandler), "VoiceStreamTransmitterHandler");
+				
+				/* reciever stuff */
+				Main.main.voicePlayer.enable(); // enable speaker
+				Main.main.voiceStreamRecieverHandler = new VoiceStreamRecieverHandler(Main.main.connector.udpInStream, Main.main.voicePlayer); // enable reciever to write to speaker
+				
+				Main.main.registerThread(new Thread(Main.main.voiceStreamRecieverHandler), "VoiceStreamRecieverHandler");
 			}
 		};
 	}
