@@ -27,16 +27,13 @@ public class UDPOutputStream {
 	public synchronized void write(byte[] data) throws SocketException {
 		if (socket.isClosed()) throw new SocketException("Socket closed, please reopen.");
 		
-		DatagramPacket packet = new DatagramPacket(data, 0, data.length, addr);
-		packet.setData(data);
-		
 		try { // ioexception is sending problem, upper layer shouldn't have to worry
-			socket.send(packet);
+			socket.send(new DatagramPacket(data, data.length, addr));
 		} catch (IOException e) {
 			// TODO handle
 			e.printStackTrace();
 		}
 		
-		System.out.println("write: " + new String(data) + "  -->  " + addr.toString());
+		//System.out.println("write: " + new String(data) + "  -->  " + addr.toString());
 	}
 }

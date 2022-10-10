@@ -17,7 +17,6 @@ public class VoiceStreamTransmitterHandler implements Runnable {
 	public void run() {
 		try {
 			while (Main.main.isEnabled) {
-				System.out.println("transmitting");
 				trans.transmit();
 			}
 		} catch (SocketException e) {

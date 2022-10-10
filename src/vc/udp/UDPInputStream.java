@@ -34,7 +34,7 @@ public class UDPInputStream {
 			e.printStackTrace();
 		}
 
-		System.out.println("read: " + packet.getAddress() + ":" + packet.getPort()  + "  -->  " + new String(packet.getData()));
+		//System.out.println("read: " + packet.getAddress() + ":" + packet.getPort()  + "  -->  " + new String(packet.getData()));
 		
 		return packet.getData();
 	}

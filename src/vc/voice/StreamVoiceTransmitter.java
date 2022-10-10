@@ -46,7 +46,7 @@ public class StreamVoiceTransmitter {
 			microphone.open(format);
 			microphone.start();
 			
-			data = new byte[microphone.getBufferSize() / 5];
+			data = new byte[Main.main.chunkSize];
 			
 			this.enabled = true;
 		} catch (Exception e) {
