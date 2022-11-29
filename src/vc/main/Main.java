@@ -56,7 +56,7 @@ public class Main {
 		}
 	}
 	
-	public void registerThread(Thread t, String name) {
+	public void initThread(Thread t, String name) {
 		t.setName(name);
 		t.start();
 		threads.put(name, t);

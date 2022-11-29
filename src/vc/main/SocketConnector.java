@@ -29,7 +29,7 @@ public class SocketConnector {
 		try {
 			socketIn = new DatagramSocket(inport);
 			udpInStream = new UDPInputStream(socketIn, chunkSize);
-			Main.main.registerThread(new Thread(new UDPBufferedVoiceHandler(udpInStream)), "UDPInStreamHandler"); // TODO cleanup traintrack
+			Main.main.initThread(new Thread(new UDPBufferedVoiceHandler(udpInStream)), "UDPInStreamHandler"); // TODO cleanup traintrack
 			
 			System.out.println("listening on: " + socketIn.getLocalSocketAddress() + " | " + socketIn.isBound());
 		} catch (SocketException listenExc) {

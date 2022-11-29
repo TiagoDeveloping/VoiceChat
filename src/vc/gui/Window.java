@@ -155,13 +155,13 @@ public class Window {
 				Main.main.voiceTransmitter = new StreamVoiceTransmitter(Main.main.connector.udpOutStream); // transmit
 				Main.main.voiceStreamTransmitterHandler = new VoiceStreamTransmitterHandler(Main.main.voiceTransmitter); // enable reciever to write to speaker
 				
-				Main.main.registerThread(new Thread(Main.main.voiceStreamTransmitterHandler), "VoiceStreamTransmitterHandler");
+				Main.main.initThread(new Thread(Main.main.voiceStreamTransmitterHandler), "VoiceStreamTransmitterHandler");
 				
 				/* reciever stuff */
 				Main.main.voicePlayer.enable(); // enable speaker
 				Main.main.voiceStreamRecieverHandler = new VoiceStreamRecieverHandler(Main.main.connector.udpInStream, Main.main.voicePlayer); // enable reciever to write to speaker
 				
-				Main.main.registerThread(new Thread(Main.main.voiceStreamRecieverHandler), "VoiceStreamRecieverHandler");
+				Main.main.initThread(new Thread(Main.main.voiceStreamRecieverHandler), "VoiceStreamRecieverHandler");
 			}
 		};
 	}
